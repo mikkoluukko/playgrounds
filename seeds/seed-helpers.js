@@ -1,0 +1,17 @@
+module.exports.descriptors = [
+    'Ukon',
+    'Akan',
+    'Kissan',
+    'Perhos',
+    'Isomäen',
+    'Niitty',
+    'Keskus',
+    'Auto',
+    'Kelkka',
+    'Tipu',
+    'Hyppy',
+    'Piilo',
+    'Tähti',
+    'Aurinko',
+    'Hiekkakakku',
+];
