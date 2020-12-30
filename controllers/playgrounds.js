@@ -9,6 +9,19 @@ module.exports.index = async (req, res) => {
     res.render('playgrounds/index', { playgrounds });
 };
 
+module.exports.list = async (req, res) => {
+    const limit = 10;
+    const page = req.params.page || 1;
+    const playgrounds = await Playground.find({})
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec();
+    const count = await Playground.countDocuments();
+    const totalPages = Math.ceil(count / limit);
+    const currentPage = page;
+    res.render('playgrounds/list', { playgrounds, totalPages, currentPage });
+};
+
 module.exports.renderNewForm = (req, res) => {
     res.render('playgrounds/new');
 };

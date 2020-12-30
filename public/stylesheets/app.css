@@ -1,6 +1,11 @@
-#cluster-map {
+#cluster-map-main {
     width: 100%;
-    height: 500px;
+    height: 85vh;
+}
+
+#cluster-map-list {
+    width: 100%;
+    height: 400px;
 }
 
 #map {

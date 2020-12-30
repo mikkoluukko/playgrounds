@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate') %>
+<div id="cluster-map-list"></div>
+<div class="container">
+<h1>All Playgrounds</h1>
+
+    <% for (let playground of playgrounds) { %>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <% if(playground.images.length) { %>
+                <img class="img-fluid" alt="" src="<%= playground.images[0].url %>">
+                <% } else {%>
+                <img class="img-fluid" alt=""
+                    src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/YelpCamp/lz8jjv2gyynjil7lswf4.png">
+                <% } %>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= playground.title %></h5>
+                    <p class="card-text"><%= playground.description %></p>
+                    <p class="card-text">
+                        <small class="text-muted"><%= playground.location %></small>
+                    </p>
+                    <a class="btn btn-primary" href="/playgrounds/<%= playground._id %>">View <%= playground.title %></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <% if (totalPages > 0) { %>
+        <nav aria-label="page navigation">            
+            <ul class="pagination">
+                <% if (currentPage == 1) { %>
+                    <li class="page-item disabled"><a class="page-link">First</a></li>
+                <% } else { %>
+                    <li class="page-item page-item"><a class="page-link" href="/playgrounds/list/1">First</a></li>
+                <% } %>
+                <% let i = (Number(currentPage) > 3 ? Number(currentPage) - 2 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                <% } %>
+                <% for (; i <= (Number(currentPage) + 2) && i <= totalPages; i++) { %>
+                    <% if (i == currentPage) { %>
+                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/playgrounds/list/<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(currentPage) + 2 && i < totalPages) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (currentPage == totalPages) { %>
+                    <li class="page-item disabled"><a class="page-link">Last</a></li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link" href="/playgrounds/list/<%= totalPages %>">Last</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    <% } %>
+</div>
+
+<script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+    const playgrounds = {features: <%- JSON.stringify(playgrounds) %>} ;
+</script>
+
+<script src="/javascripts/clusterMapList.js"></script>
