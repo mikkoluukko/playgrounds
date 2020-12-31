@@ -28,8 +28,16 @@
                 <p class="card-text"><%= playground.description %></p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-muted"><%= playground.location %></li>
+                <li class="list-group-item">Location: <%= playground.location %></li>
                 <li class="list-group-item">Submitted by: <%= playground.author.username %></li>
+                <li class="list-group-item">
+                    <span>Equipment available at playground:</span>
+                    <ul>                        
+                        <% for (let value of playground.equipment) { %>
+                        <li><%= value %></li>
+                        <% } %>
+                    </ul>    
+                </li>
             </ul>
             <% if (currentUser && playground.author.equals(currentUser._id)) { %>
             <div class="card-body">
@@ -40,7 +48,7 @@
             </div>
             <% } %>
             <div class="card-footer text-muted">
-                0 days ago
+                Updated: 0 days ago
             </div>
         </div>
     </div>

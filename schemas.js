@@ -28,6 +28,7 @@ module.exports.playgroundSchema = Joi.object({
     playground: Joi.object({
         title: Joi.string().required().escapeHTML(),
         location: Joi.string().required().escapeHTML(),
+        equipment: Joi.array(),
         description: Joi.string().required().escapeHTML(),
     }).required(),
     deleteImages: Joi.array(),

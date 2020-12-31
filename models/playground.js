@@ -28,6 +28,22 @@ const playgroundSchema = new Schema(
                 required: true,
             },
         },
+        equipment: [
+            {
+                type: String,
+                enum: [
+                    'Swing',
+                    'Slide',
+                    'Sandbox',
+                    'Baby Swing',
+                    'Seesaw',
+                    'Carousel',
+                    'Climbing',
+                    'Bench',
+                    'Web Swing',
+                ],
+            },
+        ],
         description: String,
         location: String,
         author: {

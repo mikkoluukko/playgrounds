@@ -76,6 +76,15 @@ module.exports.updatePlayground = async (req, res) => {
     const playground = await Playground.findByIdAndUpdate(id, {
         ...req.body.playground,
     });
+    if (req.body.playground.location != playground.location) {
+        const geoData = await geocoder
+            .forwardGeocode({
+                query: req.body.playground.location,
+                limit: 1,
+            })
+            .send();
+        playground.geometry = geoData.body.features[0].geometry;
+    }
     const images = req.files.map((f) => ({
         url: f.path,
         filename: f.filename,

@@ -21,7 +21,7 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Playground.deleteMany({});
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1; i++) {
         const randomIndex = Math.floor(Math.random() * finland.length);
         const playground = new Playground({
             author: '5fe9bbb4aac7031ed0b827a6',

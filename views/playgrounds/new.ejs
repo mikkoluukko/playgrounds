@@ -17,7 +17,37 @@
                     Looks good!
                 </div>
             </div>
-            <div class="mb-3">
+            <!-- Add list for all the equipment options. NOT YET READY -->
+            <div class="accordion mb-3" id="equipmentAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Equipment available in playground (select multiple by holding down CTRL)
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" 
+                        data-bs-parent="#equipmentAccordion">
+                        <% const equipment = [
+                            'Swing',
+                            'Slide',
+                            'Sandbox',
+                            'Baby Swing',
+                            'Seesaw',
+                            'Carousel',
+                            'Climbing',
+                            'Bench',
+                            'Web Swing' 
+                        ] %>
+                        <select class="form-select" name="playground[equipment]" multiple aria-label="multiple select example">
+                            <% for (value of equipment) { %>
+                            <option value="<%= value %>"><%= value %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 border">
                 <div class="form-file custom-file">
                     <input type="file" class="form-file-input" id="image" name="image" multiple>
                     <label class="form-file-label" for="image">

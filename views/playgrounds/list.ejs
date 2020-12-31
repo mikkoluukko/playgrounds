@@ -7,7 +7,7 @@
     <div class="card mb-3">
         <div class="row">
             <div class="col-md-4">
-                <% if(playground.images.length) { %>
+                <% if (playground.images.length) { %>
                 <img class="img-fluid" alt="" src="<%= playground.images[0].url %>">
                 <% } else {%>
                 <img class="img-fluid" alt=""
@@ -28,7 +28,7 @@
     </div>
     <% } %>
 
-    <% if (totalPages > 0) { %>
+    <% if (totalPages && totalPages > 0) { %>
         <nav aria-label="page navigation">            
             <ul class="pagination">
                 <% if (currentPage == 1) { %>
