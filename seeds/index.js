@@ -18,10 +18,29 @@ db.once('open', () => {
 });
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
+const equipment = [
+    'Swing',
+    'Slide',
+    'Sandbox',
+    'Baby Swing',
+    'Seesaw',
+    'Carousel',
+    'Climbing',
+    'Bench',
+    'Web Swing',
+];
 
 const seedDB = async () => {
     await Playground.deleteMany({});
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 30; i++) {
+        let equipmentList = [];
+        while (equipmentList.length < 3) {
+            let randomEquipment =
+                equipment[Math.floor(Math.random() * equipment.length)];
+            if (!equipmentList.includes(randomEquipment)) {
+                equipmentList.push(randomEquipment);
+            }
+        }
         const randomIndex = Math.floor(Math.random() * finland.length);
         const playground = new Playground({
             author: '5fe9bbb4aac7031ed0b827a6',
@@ -37,6 +56,7 @@ const seedDB = async () => {
             //         cities[randomIndex].latitude,
             //     ],
             // },
+            equipment: equipmentList,
             images: [
                 {
                     url:

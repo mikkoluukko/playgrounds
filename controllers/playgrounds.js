@@ -10,17 +10,50 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.list = async (req, res) => {
-    const limit = 10;
-    const page = req.params.page || 1;
-    const playgrounds = await Playground.find({})
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .exec();
-    const count = await Playground.countDocuments();
-    const totalPages = Math.ceil(count / limit);
-    const currentPage = page;
-    res.render('playgrounds/list', { playgrounds, totalPages, currentPage });
+    const equipment = [
+        'Swing',
+        'Slide',
+        'Sandbox',
+        'Baby Swing',
+        'Seesaw',
+        'Carousel',
+        'Climbing',
+        'Bench',
+        'Web Swing',
+    ];
+    let filters = [];
+    const playgrounds = await Playground.find({});
+    res.render('playgrounds/list', { playgrounds, equipment, filters });
 };
+
+// module.exports.list = async (req, res) => {
+//     let filters = [];
+//     let query;
+//     if (req.query.filters) {
+//         filters = req.query.filters;
+//         // query = `equipment: { $all: [${filters.toString()}] }`;
+//         query = "equipment: { $all: ['Swing']}";
+//     }
+//     const filters2 = ['Swing'];
+//     console.log('filters: ' + filters + ' query: ' + query);
+//     const limit = 10;
+//     const page = req.params.page || 1;
+//     const playgrounds = await Playground.find({
+//         equipment: { $all: filters2 },
+//     })
+//         .limit(limit * 1)
+//         .skip((page - 1) * limit)
+//         .exec();
+//     const count = await Playground.countDocuments();
+//     const totalPages = Math.ceil(count / limit);
+//     const currentPage = page;
+//     res.render('playgrounds/list', {
+//         playgrounds,
+//         totalPages,
+//         currentPage,
+//         filters,
+//     });
+// };
 
 module.exports.renderNewForm = (req, res) => {
     res.render('playgrounds/new');
@@ -33,6 +66,11 @@ module.exports.createPlayground = async (req, res, next) => {
             limit: 1,
         })
         .send();
+    console.log(req.body.playground.equipment);
+    if (!Array.isArray(req.body.playground.equipment)) {
+        req.body.playground.equipment = [req.body.playground.equipment];
+    }
+    console.log(req.body.playground.equipment);
     const playground = new Playground(req.body.playground);
     playground.geometry = geoData.body.features[0].geometry;
     playground.images = req.files.map((f) => ({

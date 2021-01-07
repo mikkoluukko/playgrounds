@@ -1,7 +1,38 @@
 <% layout('layouts/boilerplate') %>
 <div id="cluster-map-list"></div>
 <div class="container">
-<h1>All Playgrounds</h1>
+    <h1 class="my-3">All Playgrounds</h1>
+
+    <div class="accordion mb-3" id="equipmentAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Filter results by equipment
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" 
+                data-bs-parent="#equipmentAccordion">
+
+                <% const totalPages = 1 %>
+                <% const currentPage = 1 %>
+                
+                    <% for (value of equipment) { %>
+                    <input type="checkbox" class="equipmentFilter" value="<%= value %>" onclick="moi()"
+                        <% for (filter of filters) { %>
+                                <% console.log(filter) %>
+                            <% if (filter == value) { %>
+                                checked
+                            <% } %>
+                        <% } %> >
+                        <%= value %></input>
+                    <% } %>
+                
+            </div>
+        </div>
+    </div>
+    
+    
 
     <% for (let playground of playgrounds) { %>
     <div class="card mb-3">
@@ -9,9 +40,9 @@
             <div class="col-md-4">
                 <% if (playground.images.length) { %>
                 <img class="img-fluid" alt="" src="<%= playground.images[0].url %>">
-                <% } else {%>
-                <img class="img-fluid" alt=""
-                    src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/YelpCamp/lz8jjv2gyynjil7lswf4.png">
+                <% } else { %>
+                <img class="img-fluid" alt="" 
+                    src="https://res.cloudinary.com/dzmcq4kiz/image/upload/w_200/v1609147256/Playgrounds/sample.jpg">
                 <% } %>
             </div>
             <div class="col-md-8">
@@ -21,7 +52,8 @@
                     <p class="card-text">
                         <small class="text-muted"><%= playground.location %></small>
                     </p>
-                    <a class="btn btn-primary" href="/playgrounds/<%= playground._id %>">View <%= playground.title %></a>
+                    <a class="btn btn-primary" href="/playgrounds/<%= playground._id %>">
+                        View <%= playground.title %></a>
                 </div>
             </div>
         </div>
@@ -66,3 +98,17 @@
 </script>
 
 <script src="/javascripts/clusterMapList.js"></script>
+<!-- <script type="text/javascript" src="/javascripts/filterResults.js"></script> -->
+<script>
+    function moi() {
+
+
+        let equipment2 = document.getElementsByClassName('equipmentFilter');
+
+        let test2 = '<%-filters%>'
+        
+        console.log(test2);
+        // console.log(filters);
+    }
+
+</script>
