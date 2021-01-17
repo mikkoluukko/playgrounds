@@ -2,8 +2,9 @@
 <div id="cluster-map-list"></div>
 <div class="container">
     <h1 class="my-3">All Playgrounds</h1>
+    <div>Displaying 10 results per page</div>
 
-    <div class="accordion mb-3" id="equipmentAccordion">
+    <div class="accordion mb-3 d-none" id="equipmentAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" 
@@ -14,19 +15,12 @@
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" 
                 data-bs-parent="#equipmentAccordion">
 
-                <% const totalPages = 1 %>
-                <% const currentPage = 1 %>
                 
-                    <% for (value of equipment) { %>
-                    <input type="checkbox" class="equipmentFilter" value="<%= value %>" onclick="moi()"
-                        <% for (filter of filters) { %>
-                                <% console.log(filter) %>
-                            <% if (filter == value) { %>
-                                checked
-                            <% } %>
-                        <% } %> >
-                        <%= value %></input>
-                    <% } %>
+                <% for (value of equipment) { %>
+                <input type="checkbox" class="equipmentFilter" value="<%= value %>" onclick="moi()">
+
+                    <%= value %></input>
+                <% } %>
                 
             </div>
         </div>
@@ -66,7 +60,7 @@
                 <% if (currentPage == 1) { %>
                     <li class="page-item disabled"><a class="page-link">First</a></li>
                 <% } else { %>
-                    <li class="page-item page-item"><a class="page-link" href="/playgrounds/list/1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="/playgrounds/list/1">First</a></li>
                 <% } %>
                 <% let i = (Number(currentPage) > 3 ? Number(currentPage) - 2 : 1) %>
                 <% if (i !== 1) { %>

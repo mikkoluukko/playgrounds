@@ -9,6 +9,23 @@ module.exports.index = async (req, res) => {
     res.render('playgrounds/index', { playgrounds });
 };
 
+// module.exports.list = async (req, res) => {
+//     const equipment = [
+//         'Swing',
+//         'Slide',
+//         'Sandbox',
+//         'Baby Swing',
+//         'Seesaw',
+//         'Carousel',
+//         'Climbing',
+//         'Bench',
+//         'Web Swing',
+//     ];
+//     let filters = [];
+//     const playgrounds = await Playground.find({});
+//     res.render('playgrounds/list', { playgrounds, equipment, filters });
+// };
+
 module.exports.list = async (req, res) => {
     const equipment = [
         'Swing',
@@ -22,38 +39,30 @@ module.exports.list = async (req, res) => {
         'Web Swing',
     ];
     let filters = [];
-    const playgrounds = await Playground.find({});
-    res.render('playgrounds/list', { playgrounds, equipment, filters });
+    let query;
+    if (req.query.filters) {
+        filters = req.query.filters;
+        // query = `equipment: { $all: [${filters.toString()}] }`;
+        query = "equipment: { $all: ['Swing']}";
+    }
+    console.log('filters: ' + filters + ' query: ' + query);
+    const limit = 10;
+    const page = req.params.page || 1;
+    const playgrounds = await Playground.find({})
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec();
+    const count = await Playground.countDocuments();
+    const totalPages = Math.ceil(count / limit);
+    const currentPage = page;
+    res.render('playgrounds/list', {
+        playgrounds,
+        totalPages,
+        currentPage,
+        equipment,
+        filters,
+    });
 };
-
-// module.exports.list = async (req, res) => {
-//     let filters = [];
-//     let query;
-//     if (req.query.filters) {
-//         filters = req.query.filters;
-//         // query = `equipment: { $all: [${filters.toString()}] }`;
-//         query = "equipment: { $all: ['Swing']}";
-//     }
-//     const filters2 = ['Swing'];
-//     console.log('filters: ' + filters + ' query: ' + query);
-//     const limit = 10;
-//     const page = req.params.page || 1;
-//     const playgrounds = await Playground.find({
-//         equipment: { $all: filters2 },
-//     })
-//         .limit(limit * 1)
-//         .skip((page - 1) * limit)
-//         .exec();
-//     const count = await Playground.countDocuments();
-//     const totalPages = Math.ceil(count / limit);
-//     const currentPage = page;
-//     res.render('playgrounds/list', {
-//         playgrounds,
-//         totalPages,
-//         currentPage,
-//         filters,
-//     });
-// };
 
 module.exports.renderNewForm = (req, res) => {
     res.render('playgrounds/new');

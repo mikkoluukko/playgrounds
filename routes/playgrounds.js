@@ -17,7 +17,7 @@ router
         catchAsync(playgrounds.createPlayground)
     );
 
-router.get('/list', catchAsync(playgrounds.list));
+router.get('/list/:page', catchAsync(playgrounds.list));
 
 router.get('/new', isLoggedIn, playgrounds.renderNewForm);
 

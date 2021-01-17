@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Playgrounds on Map</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -7,17 +7,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/playgrounds">Playgrounds on Map</a>
-                <a class="nav-link" href="/playgrounds/list">List all Playgrounds</a>
-                <a class="nav-link" href="/playgrounds/new">New Playground</a>
+                <a class="nav-link text-light" href="/">Home</a>
+                <a class="nav-link text-light" href="/playgrounds">Map of all playgrounds</a>
+                <a class="nav-link text-light" href="/playgrounds/list/1">List of all Playgrounds</a>
+                <a class="nav-link text-light" href="/playgrounds/new">New Playground</a>
             </div>
             <div class="navbar-nav ml-auto">
                 <% if(!currentUser) { %>
-                <a class="nav-link" href="/login">Login</a>
-                <a class="nav-link" href="/register">Register</a>
+                <a class="nav-link text-light" href="/login">Login</a>
+                <a class="nav-link text-light" href="/register">Register</a>
                 <% } else { %>
-                <a class="nav-link" href="/logout">Logout</a>
+                <a class="nav-link text-light" href="/logout">Logout</a>
                 <% } %>
             </div>
         </div>

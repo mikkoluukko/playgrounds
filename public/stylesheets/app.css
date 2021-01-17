@@ -28,3 +28,18 @@
     right: 0;
     margin: auto;
 } */
+
+.navbar,
+.footer,
+.btn.btn-primary,
+.page-item.active > .page-link {
+    background-color: #428bca;
+}
+
+.page-item > .page-link {
+    color: #428bca;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
